@@ -11,19 +11,31 @@ class Library extends Component {
         this.props.fetchCourses()
     }
 
+    renderCourses() {
+        const data = this.props.courses
+
+        return data.map((object, index) => {
+            return <LibraryCourse key={index}/>
+        })
+    }
 
     render() {
-        
-        return(
+         return(
             <div className='library'>
                 <h1 className="library_title">Course Library</h1>
-                <LibraryCourse/>
-                <LibraryCourse/>
-                <LibraryCourse/>
+                {this.renderCourses() }
 
             </div>
         )
     }
 }
 
-export default connect(null, actions)(Library);
+function mapStateToProps(state) {
+    return {
+        courses: state.courses
+    }
+    
+}
+
+
+export default connect(mapStateToProps, actions)(Library);
